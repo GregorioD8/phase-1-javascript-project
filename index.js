@@ -16,7 +16,6 @@ mediumBtn.addEventListener('mouseout', handleMouseEvent)
 easyBtn.addEventListener('mouseover', handleMouseEvent)
 easyBtn.addEventListener('mouseout', handleMouseEvent)
 
-
 let answeredCorrectly = 0
 let totalAnswered = 0
 let answerObj = {}
@@ -55,15 +54,12 @@ function getAllQuestions() {
         .then(resp => resp.json())
         .then(data => {
             for (el of data) {
-                if (el.difficulty === difficulty)
+                if (el.difficulty === difficulty){
                     getQuestionById(el.id)
-
-                answerObj[el.id] = el.correct_answer
-            }
-        }
-
-
-        )
+                    answerObj[el.id] = el.correct_answer
+                }
+             }
+        })
 }
 
 function getQuestionById(id) {
@@ -74,6 +70,7 @@ function getQuestionById(id) {
 
 function renderOneQuestion(q) {
     //places correct answer at a random spot in the array
+    //using forEach
     let answers = []
     q.incorrect_answers.forEach(el => answers.push(el))
     answers.splice((answers.length + 1) * Math.random() | 0, 0, q.correct_answer)
@@ -87,7 +84,6 @@ function renderOneQuestion(q) {
     let option = document.createElement('option')
     option.innerText = 'Select Answer'
     select.append(option)
-
 
     for (let el of answers) {
         let option = document.createElement('option')
@@ -126,7 +122,7 @@ function checkAnswer(a) {
 
 function handleLike(e) {
     e.preventDefault()
-    if (e.target.style.color != 'red') {
+    if (e.target.style.color != 'red') {0
         e.target.style.color = 'red'
     } else {
         e.target.style.color = 'black'
@@ -135,17 +131,16 @@ function handleLike(e) {
 }
 
 function handleMouseEvent(e) {
-
     if (e.type === 'mouseover') {
         e.target.style.color = 'red'
     } else if (e.type === 'mouseout') {
         e.target.style.color = 'black'
-
     }
 }
 
 function updateScore() {
     scoreDiv.innerText = `Score: ${answeredCorrectly} / ${totalAnswered}`
+    console.log(answerObj)
 }
 
 function handleSubmit(e) {
