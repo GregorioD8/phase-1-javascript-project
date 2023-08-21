@@ -1,10 +1,10 @@
 //code here
-let hardBtn = document.querySelector('#hard')
-let mediumBtn = document.querySelector('#medium')
-let easyBtn = document.querySelector('#easy')
-let scoreDiv = document.querySelector('#score')
-let scoreForm = document.querySelector('#save-score')
-let questionDiv = document.querySelector('#selection')
+const hardBtn = document.querySelector('#hard')
+const mediumBtn = document.querySelector('#medium')
+const easyBtn = document.querySelector('#easy')
+const scoreDiv = document.querySelector('#score')
+const scoreForm = document.querySelector('#save-score')
+const questionDiv = document.querySelector('#selection')
 scoreForm.addEventListener('submit', handleSubmit)
 hardBtn.addEventListener('click', handleDifficulty)
 mediumBtn.addEventListener('click', handleDifficulty)
@@ -18,7 +18,7 @@ easyBtn.addEventListener('mouseout', handleMouseEvent)
 
 let answeredCorrectly = 0
 let totalAnswered = 0
-let answerObj = {}
+const answerObj = {}
 let currentId = 0
 
 function handleDifficulty(e) {
@@ -40,7 +40,7 @@ function handleDifficulty(e) {
             easyBtn.innerText  = 'Easy Selected'
             break
     }
-
+  
     answeredCorrectly = 0
     totalAnswered = 0
     questionDiv.replaceChildren()
@@ -65,7 +65,7 @@ function getAllQuestions() {
 function getQuestionById(id) {
     fetch(`http://localhost:3000/results/${id}`)
         .then(res => res.json())
-        .then(question => renderOneQuestion(question))
+        .then(renderOneQuestion)
 }
 
 function renderOneQuestion(q) {
@@ -80,18 +80,19 @@ function renderOneQuestion(q) {
   <h2 id="${q.id}">${q.question}</h2> 
 
   `
-    let select = document.createElement('select')
-    let option = document.createElement('option')
+    const select = document.createElement('select')
+    const option = document.createElement('option')
     option.innerText = 'Select Answer'
     select.append(option)
 
     for (let el of answers) {
-        let option = document.createElement('option')
-        option.innerText = el
-        select.append(option)
+        const option2 = document.createElement('option')
+        option2.innerText = el
+        select.append(option2)
 
     }
-    let likeBtn = document.createElement('button')
+    
+    const likeBtn = document.createElement('button')
     likeBtn.innerText = 'Like ♥'
     likeBtn.addEventListener('click', handleLike)
     card.appendChild(select)
@@ -110,7 +111,7 @@ function handleAnswer(e) {
 
 function checkAnswer(a) {
     totalAnswered = totalAnswered + 1
-    let question = document.getElementById(`${currentId}`)
+    const question = document.getElementById(`${currentId}`)
     if (a === answerObj[currentId]) {
         answeredCorrectly = answeredCorrectly + 1
         question.style.color = '#2dba4e'
@@ -151,9 +152,9 @@ function handleSubmit(e) {
 }
 
 function addNewScore(newName) {
-    let newScore = document.createElement('h2')
+    const newScore = document.createElement('h2')
     const str = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
     newScore.innerText = `${newName}-${str}-${answeredCorrectly} / ${totalAnswered}`
     scoreForm.append(newScore)
-
+    console.log(hardBtn)
 }
