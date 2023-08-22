@@ -11,7 +11,7 @@ to start run the
 ## Demo
 
 Here is a link to a video of me showing how the app works 
-![demo](https://youtu.be/Xq4s-xfoQBY)
+![video](https://youtu.be/Xq4s-xfoQBY)
 
 ## Setup
 - Run `json-server --watch db.json` to start the server
